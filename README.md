@@ -1,0 +1,7 @@
+# Bitpixie
+
+## Voraussetzungen
+
+## Ablauf
+
+
