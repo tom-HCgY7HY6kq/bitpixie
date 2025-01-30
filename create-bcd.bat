@@ -6,7 +6,7 @@ bcdedit /export BCD_modded
 
 bcdedit /store BCD_modded /create /d "softreboot" /application startup>GUID.txt
 For /F "tokens=2 delims={}" %%i in (GUID.txt) do (set REBOOT_GUID=%%i)
-del guid.txt
+del GUID.txt
 
 bcdedit /store BCD_modded /set {%REBOOT_GUID%} path "\shimx64.efi"
 bcdedit /store BCD_modded /set {%REBOOT_GUID%} device boot
