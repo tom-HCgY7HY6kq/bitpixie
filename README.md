@@ -34,6 +34,7 @@ This exploit can be tested using QEMU.
 
 I installed Windows 11 ([Tiny 11](https://github.com/ntdevlabs/tiny11builder)) on a newly created disk, installed all security patches and activated Bitlocker.
 Before creating the virtual machine, I had to edit the loader and change it to `/usr/share/OVMF/OVMF_CODE_4M.ms.fd` as shown below.
+
 ![VirtManager Settings](images/qemu-machine-settings.png)
 
 After enabling Bitlocker, change the model type of the network interface to `virtio`.
