@@ -9,6 +9,11 @@ SHA256: b5632b54120f887ec3d1f1f405ad75c71a2c066ddb34e54efa374c4f7190b2c1 (can be
 
 ### shimx64.efi
 Signed shim from the [debian packages](https://packages.debian.org/buster/shim-signed)
+This is version 15.7 from the buster release. It is broken on some systems
+
+### shimx64.efi.bookworm
+Signed shim from the [debian packages](https://packages.debian.org/bookworm/shim-signed)
+This is version 15.8 from the bookworm release. Replace shimx64.efi with it if you get the following error during boot: "Verifying shim SBAT data failed: Security Policy Violation"
 
 ### grubx64.efi
 Signed grub from the [debian packages](https://packages.debian.org/buster/grub-efi-amd64-signed)
