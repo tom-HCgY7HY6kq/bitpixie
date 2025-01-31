@@ -8,15 +8,15 @@
 - [ ] Complete Guided Exploit Script
 
 ## General concept of the attack
-
 The Bitpixie bug was originally discovered by [Rairii](https://github.com/Wack0) and assigned CVE-2023-21563.
 The first public demonstration of the full attack was performed by th0mas at 38c3: ["Windows BitLocker: Screwed without a Screwdriver"](https://media.ccc.de/v/38c3-windows-bitlocker-screwed-without-a-screwdriver).
-Large parts of this repository are based on his work.
+Large parts of this repository are based on his work, that he also published as an article: ["Windows BitLocker -- Screwed without a Screwdriver"](https://neodyme.io/en/blog/bitlocker_screwed_without_a_screwdriver/) This article also explains potential mitigations.
 
 ## Prerequisites
 In order to carry out this attack, the encrypted computer must meet certain requirements.
 - It must use Bitlocker without pre-boot authentication.
 - It must be able to boot in PXE mode. Ideally, the PXE boot option is not disabled in the bios. On some systems, this attack may work even if PXE boot is disabled, as PXE boot can be enabled by connecting an external network card.
+- The PCR Validation must not include `4`. Check with `manage-bde -protectors -get c:` This is default behaviour.
 
 ### Software requirements for the attacker machine
 The following packages have to be installed on the attacker machine:
@@ -41,3 +41,7 @@ After enabling Bitlocker, change the model type of the network interface to `vir
 
 ### Building the initrd
 All files for building the initrd can be found in the Linux-Exploit folder.
+
+## Mitigations that work
+- Use Bitlocker with Pre Boot Authentication (TPM+PIN)
+- Disable UEFI network stack to completely disable PXE
