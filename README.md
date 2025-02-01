@@ -86,3 +86,4 @@ The file is automatically transfered to the `PXE-Server/` folder.
 ## Mitigations that work
 - Use BitLocker with Pre Boot Authentication (TPM+PIN) (Preferred way, since it also prevents a bunch of other attacks against BitLocker.)
 - Apply patch [KB5025885](https://support.microsoft.com/en-us/topic/how-to-manage-the-windows-boot-manager-revocations-for-secure-boot-changes-associated-with-cve-2023-24932-41a975df-beb2-40c1-99a3-b3ff139f832d#bkmk_mitigation_guidelines) as described in the Microsoft guideline.
+- Disable UEFI network stack to completely disable PXE (If none of the above is possible)
