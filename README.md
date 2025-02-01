@@ -15,7 +15,7 @@ Large parts of this repository are based on his work, that he also published as 
 
 ## Prerequisites
 In order to carry out this attack, the encrypted computer must meet certain requirements.
-- It must use Bitlocker without pre-boot authentication.
+- It must use BitLocker without pre-boot authentication.
 - It must be able to boot in PXE mode. Ideally, the PXE boot option is not disabled in the bios. On some systems, this attack may work even if PXE boot is disabled, as PXE boot can be enabled by connecting an external network card.
 - The PCR Validation must not include `4`. Check with `manage-bde -protectors -get c:` This is default behaviour.
 
@@ -38,18 +38,37 @@ For performing trhe bitpixie attack (boot into downgraded bootmgfw.efi):
 $ ./start-server.sh exploit <interface>
 ```
 
-To enter the
+To boot into the linux system through PXE-boot, press Restart while holding down the Shift key.
+This will reboot the machine into Advanced Boot Options.
+There you have to click on `Use a device` and select IPv4 PXE Boot.
+
+### Extracting the BCD file
+Extracting the (unmodified) BCD file from the EFI partition is easy:
+```
+initrd:~# extract-bcd /dev/sda1
+```
+The BCD file is copied to the /root/ directory.
+In the future, the BCD file will be automatically copied to the attacker machine.
+
+### Breaking BitLocker
+Start the TFTP server into exploit mode (boot into downgraded Windows boot manager).
+Preform the bitpixie exploit:
+```
+initrd:~# run-exploit /dev/sda3
+```
+Currently, only the VMK is read from memory.
+In the near future, the partition will be automatically decrypted and mounted.
 
 ## How to set up a test environment
 ### Setting up QEMU
 This exploit can be tested using QEMU.
 
-I installed Windows 11 ([Tiny 11](https://github.com/ntdevlabs/tiny11builder)) on a newly created disk, installed all security patches and activated Bitlocker.
+I installed Windows 11 ([Tiny 11](https://github.com/ntdevlabs/tiny11builder)) on a newly created disk, installed all security patches and activated BitLocker.
 Before creating the virtual machine, I had to edit the loader and change it to `/usr/share/OVMF/OVMF_CODE_4M.ms.fd` as shown below.
 
 ![VirtManager Settings](images/qemu-machine-settings.png)
 
-After enabling Bitlocker, change the model type of the network interface to `virtio` and set the ROM to "no" (see [this bug](https://bugs.launchpad.net/maas/+bug/1789319)).
+After enabling BitLocker, change the model type of the network interface to `virtio` and set the ROM to "no" (see [this bug](https://bugs.launchpad.net/maas/+bug/1789319)).
 The XML of the network interface should look lke this:
 ```
 <interface type="network">
@@ -65,5 +84,5 @@ The complete alpine-initrd.xz can be built using the script `./build-initramfs.s
 The file is automatically transfered to the `PXE-Server/` folder.
 
 ## Mitigations that work
-- Use Bitlocker with Pre Boot Authentication (TPM+PIN) (Preferred way,  since it also prevents a bunch of other attacks against BitLocker.)
+- Use BitLocker with Pre Boot Authentication (TPM+PIN) (Preferred way, since it also prevents a bunch of other attacks against BitLocker.)
 - Apply patch [KB5025885](https://support.microsoft.com/en-us/topic/how-to-manage-the-windows-boot-manager-revocations-for-secure-boot-changes-associated-with-cve-2023-24932-41a975df-beb2-40c1-99a3-b3ff139f832d#bkmk_mitigation_guidelines) as described in the Microsoft guideline.
