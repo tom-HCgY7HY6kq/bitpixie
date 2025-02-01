@@ -43,5 +43,5 @@ After enabling Bitlocker, change the model type of the network interface to `vir
 All files for building the initrd can be found in the Linux-Exploit folder.
 
 ## Mitigations that work
-- Use Bitlocker with Pre Boot Authentication (TPM+PIN)
-- Disable UEFI network stack to completely disable PXE
+- Use Bitlocker with Pre Boot Authentication (TPM+PIN) (Preferred way,  since it also prevents a bunch of other attacks against BitLocker.)
+- Apply patch [KB5025885](https://support.microsoft.com/en-us/topic/how-to-manage-the-windows-boot-manager-revocations-for-secure-boot-changes-associated-with-cve-2023-24932-41a975df-beb2-40c1-99a3-b3ff139f832d#bkmk_mitigation_guidelines) as described in the Microsoft guideline.
