@@ -1,10 +1,11 @@
 # bitpixie Proof of Concept
 
-**Information:** This repository is still under development and does not yet work!
+**Information:** This repository is still under development and does not yet completely work!
 
 - [x] BCD-Creator
 - [x] Linux Secure Boot
-- [ ] Linux Exploit / VMK Scanner
+- [x] Linux Exploit / VMK Scanner
+- [ ] Dislocker decryption
 - [ ] Complete Guided Exploit Script
 
 ## General concept of the attack
@@ -41,6 +42,8 @@ After enabling Bitlocker, change the model type of the network interface to `vir
 
 ### Building the initrd
 All files for building the initrd can be found in the Linux-Exploit folder.
+The complete alpine-initrd.xz can be built using the script `./build-initramfs.sh`.
+The file is automatically transfered to the `PXE-Server/` folder.
 
 ## Mitigations that work
 - Use Bitlocker with Pre Boot Authentication (TPM+PIN) (Preferred way,  since it also prevents a bunch of other attacks against BitLocker.)
