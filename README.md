@@ -29,6 +29,17 @@ The attack consists of two separate steps.
 First, a modified BCD configuration file must be created specifically for the victim.
 The next step is to boot the target via PXE using the modified BCD file, so that the VMK can be extracted from memory.
 
+The TFTP server can be started with the script `bitpixie-exploit.sh`:
+```
+For extracting the BCD file (directly boot into shimx64.efi):
+$ ./start-server.sh get-bcd <interface>
+
+For performing trhe bitpixie attack (boot into downgraded bootmgfw.efi):
+$ ./start-server.sh exploit <interface>
+```
+
+To enter the
+
 ## How to set up a test environment
 ### Setting up QEMU
 This exploit can be tested using QEMU.
@@ -38,7 +49,15 @@ Before creating the virtual machine, I had to edit the loader and change it to `
 
 ![VirtManager Settings](images/qemu-machine-settings.png)
 
-After enabling Bitlocker, change the model type of the network interface to `virtio`.
+After enabling Bitlocker, change the model type of the network interface to `virtio` and set the ROM to "no" (see [this bug](https://bugs.launchpad.net/maas/+bug/1789319)).
+The XML of the network interface should look lke this:
+```
+<interface type="network">
+  <model type="virtio"/>
+  <rom enabled="no"/>
+  [...]
+</interface>
+```
 
 ### Building the initrd
 All files for building the initrd can be found in the Linux-Exploit folder.
