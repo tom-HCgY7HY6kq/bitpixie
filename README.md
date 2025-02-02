@@ -1,11 +1,12 @@
 # bitpixie Proof of Concept
 
-**Information:** This repository is still under development and does not yet completely work!
+**Information:** The exploit works, but it still lacks some features and documentation.
 
 - [x] BCD-Creator
 - [x] Linux Secure Boot
 - [x] Linux Exploit / VMK Scanner
-- [ ] Dislocker decryption
+- [x] Dislocker decryption
+- [ ] Fully automated BCD extraction
 - [ ] Complete Guided Exploit Script
 
 ## General concept of the attack
@@ -56,8 +57,10 @@ Preform the bitpixie exploit:
 ```
 initrd:~# run-exploit /dev/sda3
 ```
-Currently, only the VMK is read from memory.
-In the near future, the partition will be automatically decrypted and mounted.
+The BitLocker partition should now be mounted at /root/mnt.
+If it did not work, reboot and try it again. Sometimes the VMK is not detected / overwritten.
+
+Don't forget to unmount the file system after performing your changes: `umount /root/mnt`!
 
 ## How to set up a test environment
 ### Setting up QEMU
