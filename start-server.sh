@@ -37,11 +37,7 @@ function start-servers {
   # Start dnsmasq
   echo-info "Starting dnsmasq..."
   sudo dnsmasq --no-daemon --interface=$interface --dhcp-range=10.13.37.100,10.13.37.101,255.255.255.0,1h --dhcp-boot=$BOOTEFI --enable-tftp --tftp-root=$SCRIPTPATH/PXE-Server
-
-  # Start SMB Server
-  echo-info "Starting SMB server..."
-  # TODO: Actually add the SMB Server
-  # smbserver.py smb $SCRIPTPATH/PXE-Server/Boot -smb2support
+  echo-info "Stopping dnsmasq..."
 }
 
 
