@@ -1,14 +1,5 @@
 # bitpixie Proof of Concept
 
-**Information:** The exploit works, but it still lacks some features and documentation.
-
-- [x] BCD-Creator
-- [x] Linux Secure Boot
-- [x] Linux Exploit / VMK Scanner
-- [x] Dislocker decryption
-- [ ] Fully automated BCD extraction
-- [ ] Complete Guided Exploit Script
-
 ## General concept of the attack
 The Bitpixie bug was originally discovered by [Rairii](https://github.com/Wack0) and assigned CVE-2023-21563.
 The first public demonstration of the full attack was performed by th0mas at 38c3: ["Windows BitLocker: Screwed without a Screwdriver"](https://media.ccc.de/v/38c3-windows-bitlocker-screwed-without-a-screwdriver).
