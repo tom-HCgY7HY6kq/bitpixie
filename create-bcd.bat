@@ -1,7 +1,5 @@
 @echo off
 
-SET /P DRIVE=Set the drive letter where the BCD file is located:
-
 bcdedit /export BCD_modded
 
 bcdedit /store BCD_modded /create /d "softreboot" /application startup>GUID.txt
@@ -25,9 +23,8 @@ setlocal
 SET /P AREYOUSURE=Do you want to move the file to the SMB server on 10.13.37.1 (Y/[N])?
 IF /I "%AREYOUSURE%" NEQ "Y" GOTO END
 
-SET /P DRIVE=Set the drive letter for the SMB share to be mounted:
-net use %drv%: \\10.13.37.1\smb
-move BCD_modded %drv%:\BCD
+net use S: \\10.13.37.1\smb
+move BCD_modded S:\BCD
 
 goto :EOF
 
