@@ -31,8 +31,15 @@ trap 'sudo rm -rf $INITRAMFS' EXIT
 
 ## Preprocessing
 # Copy all relevant files
+
+# kernel
+mkdir -p $INITRAMFS/boot
+cp $CACHE/vmlinuz* $INITRAMFS/boot
+# copy kernel driver
 cp -r $CACHE/lib $INITRAMFS
+# additional pieces of rootfs files
 cp -r $SRC_ROOT/linux/root/* $INITRAMFS
+find $INITRAMFS -type f -name 'README.md' -delete
 
 out "Populating temporary rootfs at $INITRAMFS..."
 
@@ -47,6 +54,9 @@ sudo $CACHE/alpine-make-rootfs \
     --script-chroot "$INITRAMFS" - <<'SHELL'
         # Fail if an error occurs
         set -e
+
+        # Generate modules.*.bin for modprobe
+        depmod $(ls /boot/vmlinuz* |  cut -d "-" -f2-)
 
         # Add services for service manager.
         # See

@@ -130,6 +130,31 @@ qemu-system-x86_64 \
   -nographic
 ```
 
+If a simple QEMU ethernet connection is required, the following flags can be
+added:
+
+```
+# Extend QEMU with network capacity
+# For more information see:
+#   https://wiki.gentoo.org/wiki/QEMU/Options#Networking
+#   https://wiki.archlinux.org/title/QEMU#Networking
+#   https://wiki.qemu.org/Documentation/Networking
+#
+qemu-system-x86_64 \
+  ... \
+  -netdev user,id=net0 -device virtio-net-pci,netdev=net0
+```
+
+> [!NOTE]  
+> If a specific functionality is missing then this could be due to a not loaded
+> driver. All loaded drivers can be displayed with `lsmod` and loaded with
+> `modprobe DRIVER`.
+> To brutally load all modules (and probably trigger kernel crashes) the
+> following command can be used:
+> ```
+>   $ find /lib/modules/5.14.0-1-amd64/ -name '*.ko' -exec sh -c 'modprobe $(basename {} | cut -d'.' -f1)' sh {} \;
+> ```
+
 ## Alternative Method of obtaining the BCD (not recommended)
 Boot the victim system into the initramfs using PXE boot: `./start-server.sh get-bcd <interface>`
 On the victim machine you can identify the drive containing the Windows installation (often /dev/sda).

@@ -84,7 +84,8 @@ if ! [ -d "$CACHE/lib" ] || ! [ -f "$OUTPUT_PXE/linux" ]; then
     out 'Copying files...'
     find $TEMPDIR -maxdepth 1 -type d -name 'lib' -exec cp -R {} $CACHE/lib \;
     # Copy file into CACHE and pxe server
-    echo "$CACHE/vmlinuz $OUTPUT_PXE/linux" | xargs -n 1 cp $(find $TEMPDIR -name 'vmlinuz*')
+    FILES="$(find $TEMPDIR -name 'vmlinuz*')"
+    cp $(dirname $FILES)/* $CACHE && cp $FILES $OUTPUT_PXE/linux
     rm -rf $TEMPDIR
     out "Created $CACHE/{lib,vmlinuz} and $PXE/linux."
 fi
