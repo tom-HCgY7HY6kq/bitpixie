@@ -7,7 +7,7 @@ Large parts of this repository are based on his work, that he also published as 
 
 [Marc André Tanner](https://github.com/martanne/bitpixie) also implemented the bitpixie exploit, you might want to check out his repository!
 
-## Prerequisites
+## Prerequisites and building process
 In order to carry out this attack, the encrypted computer must meet certain requirements.
 - It must use BitLocker without pre-boot authentication.
 - It must be able to boot in PXE mode. Ideally, the PXE boot option is not disabled in the bios. On some systems, this attack may work even if PXE boot is disabled, as PXE boot can be enabled by connecting an external network card.
@@ -24,8 +24,15 @@ For debian based systems:
 sudo apt install dnsmasq libwin-hivex-perl python3-impacket
 ```
 
+To build the initramfs, clone the repository and execute build.sh:
+```
+$ git clone --depth 1 https://github.com/andigandhi/bitpixie
+$ cd bitpixie
+$ ./build.sh
+```
+
 > [!note]
-> The repository with a precompiled alpine initramfs can be found in the releases section.
+> The repository with a prebuilt alpine initramfs can be found in the releases section.
 
 ## How to perform the attack
 The attack consists of two separate steps.
