@@ -1,3 +1,0 @@
-#!/bin/ash
-
-echo -e "\e[31;1m[!] This is just a placeholder!\e[0m" >&2

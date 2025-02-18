@@ -40,7 +40,7 @@ function start-pxe-server {
 }
 
 # Function to start the SMBserver
-function start-pxe-server {
+function start-smb-server {
   interface=$1
 
   if [[ "$interface" = "" ]]; then
@@ -67,10 +67,10 @@ function stop-servers {
 
 
 if [[ "$1" = "smb" ]]; then
-  start-servers shimx64.efi $2
+  start-smb-server $2
   exit
 elif [[ "$1" = "pxe" ]]; then
-  start-servers $2
+  start-pxe-server $2
   exit
 else
   printInfo

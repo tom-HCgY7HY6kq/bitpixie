@@ -74,6 +74,9 @@ sudo $CACHE/alpine-make-rootfs \
         rc-update add syslog boot
         rc-update add klogd boot
         rc-update add networking boot
+        rc-update add hwdrivers boot
+        rc-update add sysfs boot
+        rc-update add procfs boot
 
         rc-update add mount-ro shutdown
         rc-update add killprocs shutdown
@@ -121,6 +124,7 @@ sudo $CACHE/alpine-make-rootfs \
         # Add new non-root user
         NAME="bitpix"
         addgroup ${NAME} && adduser -s /bin/sh -h /home/${NAME} -u 1000 -D -G ${NAME} ${NAME}
+        chmod -R 777 /root
 
         # Create necessary files for namespaces.
         # See
@@ -148,6 +152,8 @@ out "Creating initramfs from temporary rootfs at $INITRAMFS..."
 OUTPUT="$SRC_ROOT/pxe-server/bitpixie-initramfs.xz"
 # Note: Needs to be run as root because all files in the rootfs are chowned by root
 (cd $INITRAMFS; sudo bash -c "find . | cpio -o -H newc | xz -z -C crc32 -9 --threads=0 -c -") > $OUTPUT
+# Faster build for debugging
+# (cd $INITRAMFS; sudo bash -c "find . | cpio -o -H newc | gzip") > $OUTPUT
 
 out "Created initramfs $(basename $OUTPUT) at $(dirname $OUTPUT)."
 
