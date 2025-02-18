@@ -23,7 +23,6 @@ setlocal
 SET /P AREYOUSURE=Do you want to move the file to the SMB server on 10.13.37.1 (Y/[N])?
 IF /I "%AREYOUSURE%" NEQ "Y" GOTO END
 
-net use S: \\10.13.37.1\smb
 move BCD_modded S:\BCD
 
 goto :EOF
