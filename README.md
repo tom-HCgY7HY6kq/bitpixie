@@ -119,7 +119,7 @@ The XML of the network interface should look lke this:
 ```
 
 ### Building the initrd
-The complete `bitpixie-initramfs.[gz,xz]` can be built using the script
+The complete `bitpixie-initramfs[.gz,.xz]` can be built using the script
 `./build [-d|--debug]`. If the `--debug` flag is used the temporary rootfs
 directory will be not deleted in order to manually examinate it via e.g. `sudo
 [chroot|arch-chroot] /path/to/temp/initramfs sh`. The final gzipped initramfs
@@ -135,7 +135,7 @@ command:
 qemu-system-x86_64 \
   -m 1G -enable-kvm  \
   -kernel pxe-server/linux \
-  -initrd pxe-server/bitpixie-initramfs.gz \
+  -initrd pxe-server/bitpixie-initramfs \
   -append "console=ttyS0" \
   -nographic
 ```

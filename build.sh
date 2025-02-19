@@ -155,7 +155,7 @@ else
     FILE_EXTENSION="xz"
 fi
 
-OUTPUT="$SRC_ROOT/pxe-server/bitpixie-initramfs.${FILE_EXTENSION}"
+OUTPUT="$SRC_ROOT/pxe-server/bitpixie-initramfs"
 # Just for correct logging for user
 RELATIVE_OUTPUT="$(realpath --relative-to $SRC_ROOT $OUTPUT)"
 
@@ -163,7 +163,7 @@ out "Creating initramfs $RELATIVE_OUTPUT from temporary rootfs at $INITRAMFS..."
 # Note: Needs to be run as root because all files in the rootfs are chowned by root
 (cd $INITRAMFS; sudo bash -c "find . | cpio -o -H newc | $COMPRESS") > $OUTPUT
 
-out "Created initramfs $RELATIVE_OUTPUT at $(dirname $OUTPUT)."
+out "Created initramfs $RELATIVE_OUTPUT with file extension ${FILE_EXTENSION} at $(dirname $OUTPUT)."
 
 if [ "$DEBUG" = "1" ]; then
     # Deactivate deletion of INITRAMFS
