@@ -141,7 +141,7 @@ qemu-system-x86_64 \
 ```
 
 > [!NOTE]  
-> There are currently two user: `root` and `bitpix`. Login as `bitpix`.
+> There are currently two user: `root` and `bitpix`. Login as `root`.
 
 If a simple QEMU ethernet connection is required, the following flags can be
 added:
