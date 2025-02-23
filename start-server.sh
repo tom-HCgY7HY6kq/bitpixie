@@ -55,7 +55,7 @@ function start-smb-server {
 
   # Start dnsmasq
   echo-info "Starting smbserver.py..."
-  sudo $(which smbserver.py) -smb2support smb "$scriptpath/pxe-server/Boot"
+  sudo $(which smbserver.py) -smb2support smb "$SCRIPTPATH/pxe-server/Boot"
   echo-info "Stopping smbserver.py..."
 }
 
