@@ -73,7 +73,6 @@ The modified BCD file will be directly moved to the attacker machine so you can 
 ![BCD File Transfer](images/grab-bcd-smb.gif)
 
 ### Breaking BitLocker
-Start the TFTP server in exploit mode: `./start-server.sh exploit <interface>`.
 
 In the Advanced Boot Options click on `Use a device` and select IPv4 PXE Boot.
 The PXE boot process should start and finally drop into the Alpine initramfs.
